@@ -138,7 +138,7 @@ def test(model, device, test_loader, criterion):
     
     return test_loss, acc, f1_micro, f1_macro, hamming
 
-def show_predictions(model, device, test_dataset, classes, n=3):
+def show_predictions(model, device, test_dataset, classes, n=6):
     """
     Show n random predictions from the test dataset.
 
@@ -292,7 +292,7 @@ def main(FLAGS):
         preds = (torch.sigmoid(outputs) > 0.5).float().cpu()
 
     classes = ['Banana', 'Blueberry', 'Cherimoya', 'Lemon', 'Lychee', 'Peach', 'Pineapple', 'Raspberry', 'Strawberry', 'Watermelon']
-    show_predictions(model, device, dataset2, classes, n=3)
+    show_predictions(model, device, dataset2, classes, n=6)
 
     # Plot Loss
     plt.figure(figsize=(8,5))
