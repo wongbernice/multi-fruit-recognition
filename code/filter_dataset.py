@@ -40,7 +40,7 @@ def main():
     filtered_testing_path = '../filtered-dataset/Testing'
 
     # 10 selected fruit classes
-    classes = ['Apple', 'Banana', 'Blueberry', 'Cherry', 'Lemon', 'Orange', 'Peach', 'Pineapple', 'Strawberry', 'Watermelon']
+    classes = ['Banana', 'Blueberry', 'Cherimoya', 'Lemon', 'Lychee', 'Peach', 'Pineapple', 'Raspberry', 'Strawberry', 'Watermelon']
 
     filter_dataset(original_training_path, filtered_training_path, classes)
     print(f"\nCompleted filtering for training")

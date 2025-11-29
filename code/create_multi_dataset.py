@@ -139,7 +139,7 @@ def main():
     multi_testing_path = '../multi-fruit-dataset/Testing'
 
     # 10 selected fruit classes
-    classes = ['Apple', 'Banana', 'Blueberry', 'Cherry', 'Lemon', 'Orange', 'Peach', 'Pineapple', 'Strawberry', 'Watermelon']
+    classes = ['Banana', 'Blueberry', 'Cherimoya', 'Lemon', 'Lychee', 'Peach', 'Pineapple', 'Raspberry', 'Strawberry', 'Watermelon']
 
     # Create dictionaries for multi-fruit training and testing datasets
     training_dict = build_fruit_dict(filtered_training_path, classes)
