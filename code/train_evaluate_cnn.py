@@ -13,7 +13,7 @@ from MultiFruitDataset import MultiFruitDataset
 import argparse
 import numpy as np 
 import matplotlib.pyplot as plt
-from sklearn.metrics import f1_score, hamming_loss
+from sklearn.metrics import f1_score, hamming_loss, precision_score, recall_score
 import textwrap
 
 def train(model, device, train_loader, optimizer, criterion, epoch, batch_size):
@@ -271,14 +271,11 @@ def main(FLAGS):
             best_f1_macro = f1_macro
         if hamming < best_hamming:
             best_hamming = hamming
-    
-    best_hamming_accuracy = 1 - best_hamming
-    
-    print("Best Accuracy: {:2.2f}".format(best_accuracy))
+        
+    print("Best Accuracy (Hamming): {:2.2f}".format(best_accuracy))
     print(f"Best F1 Micro: {best_f1_micro:.3f}")
     print(f"Best F1 Macro: {best_f1_macro:.3f}")
     print(f"Lowest Hamming Loss: {best_hamming:.3f}")
-    print(f"Best Hamming Accuracy: {best_hamming_accuracy:.3f}")
     
     print("Training and evaluation finished")
     
@@ -292,6 +289,30 @@ def main(FLAGS):
         preds = (torch.sigmoid(outputs) > 0.5).float().cpu()
 
     classes = ['Banana', 'Blueberry', 'Cherimoya', 'Lemon', 'Lychee', 'Peach', 'Pineapple', 'Raspberry', 'Strawberry', 'Watermelon']
+    
+    all_targets = []
+    all_preds = []
+
+    model.eval()
+    with torch.no_grad():
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            pred = (torch.sigmoid(output) > 0.5).float()
+            all_targets.append(target.cpu())
+            all_preds.append(pred.cpu())
+
+    all_targets = torch.cat(all_targets)
+    all_preds = torch.cat(all_preds)
+
+    # Metrics for each class
+    print("\nPer-class metrics:")
+    for i, cls in enumerate(classes):
+        precision = precision_score(all_targets[:, i], all_preds[:, i])
+        recall = recall_score(all_targets[:, i], all_preds[:, i])
+        f1 = f1_score(all_targets[:, i], all_preds[:, i])
+        print(f"{cls}: Precision={precision:.3f}, Recall={recall:.3f}, F1={f1:.3f}")
+    
     show_predictions(model, device, dataset2, classes, n=6)
 
     # Plot Loss
