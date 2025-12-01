@@ -17,11 +17,11 @@ In this work, we extend traditional image classification models to handle multi-
   - `MultiFruitDataset.py ` → PyTorch Dataset class for loading images and labels
 - **Download Link**: [Multi-Fruit Dataset](https://ucf-my.sharepoint.com/:f:/g/personal/yi951759_ucf_edu/IgBanlWhyFIVSbRYbQ9pFA95AUeTkKw6oflSXTc69MgPxxY?e=7xY3X1)
 
-## Installation
+## 🛠️ Installation
 Install required libraries:  
 `pip install torch torchvision numpy matplotlib scikit-learn opencv-python pillow`
 
-## Usage
+## 🖥️ Usage
 1. Prepare Dataset
    -  Create your own dataset:  
       `python filter_dataset.py`  
